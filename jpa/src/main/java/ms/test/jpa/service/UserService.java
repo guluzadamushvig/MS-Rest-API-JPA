@@ -28,4 +28,27 @@ public class UserService {
                 .userName(userMain.getUserName())
                 .build();
     }
+
+    public void addUser(User user) {
+        userRepository.save(user);
+    }
+
+    public UserRequestResponse updateUser(UserRequestResponse userRequestResponse,Long id) {
+        var user = userRepository.findById(id);
+        User foundedUser = null;
+        UserRequestResponse returnUserRequestResponse = null;
+        if (user.isPresent()){
+            foundedUser=user.get();
+            String name = userRequestResponse.getUserName();
+            userRepository.updateUser(name,id);
+        }
+        else{
+            System.out.println("User not found");
+        }
+
+
+        return returnUserRequestResponse.builder()
+                .userName(foundedUser.getUserName())
+                .build();
+    }
 }
