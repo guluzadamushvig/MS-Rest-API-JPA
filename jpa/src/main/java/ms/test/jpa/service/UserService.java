@@ -2,6 +2,7 @@ package ms.test.jpa.service;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ms.test.jpa.dao.entity.User;
 import ms.test.jpa.dao.entity.UserRequestResponse;
 import ms.test.jpa.dao.repository.UserRepository;
@@ -12,21 +13,31 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Builder
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
 
     public UserRequestResponse getUserById(Long id) {
+        log.info("ActionLog.getUserById.start id : {}", id);
         var user = userRepository.findById(id);
         User userMain = null;
         if (user.isPresent())
         {
-             userMain = user.get();
+            log.info("ActionLog.getUserById.userFound id : {}", id);
+            userMain = user.get();
         }
-        else System.out.println("User not found");
+        else {
+            log.error("ActionLog.getUserById.userNotFound id : {}", id);
+        };
 
-        return UserRequestResponse.builder()
-                .userName(userMain.getUserName())
-                .build();
+        log.info("ActionLog.getUserById.successfully.finished id : {}", id);
+
+        if (userMain != null) {
+            return UserRequestResponse.builder()
+                    .userName(userMain.getUserName())
+                    .build();
+        }
+        else return null;
     }
 
     public void addUser(User user) {
