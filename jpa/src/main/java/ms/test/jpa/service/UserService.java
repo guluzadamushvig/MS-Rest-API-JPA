@@ -4,11 +4,9 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ms.test.jpa.dao.entity.User;
-import ms.test.jpa.dao.entity.UserRequestResponse;
+import ms.test.jpa.model.UserRequestResponse;
 import ms.test.jpa.dao.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -58,8 +56,11 @@ public class UserService {
         }
 
 
-        return returnUserRequestResponse.builder()
-                .userName(foundedUser.getUserName())
-                .build();
+        if (foundedUser != null) {
+            return returnUserRequestResponse.builder()
+                    .userName(foundedUser.getUserName())
+                    .build();
+        }
+        else return null;
     }
 }

@@ -1,9 +1,8 @@
 package ms.test.jpa.controller;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import ms.test.jpa.dao.entity.User;
-import ms.test.jpa.dao.entity.UserRequestResponse;
+import ms.test.jpa.model.UserRequestResponse;
 import ms.test.jpa.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

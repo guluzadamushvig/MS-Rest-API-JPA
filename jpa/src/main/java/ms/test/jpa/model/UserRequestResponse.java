@@ -1,4 +1,4 @@
-package ms.test.jpa.dao.entity;
+package ms.test.jpa.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
